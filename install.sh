@@ -12,14 +12,11 @@ sudo apt-get -y install bash-completion
 
 ### GitHub CLI (gh)
 
-GH_VERSION=`curl  "https://api.github.com/repos/cli/cli/releases/latest" \
-  | grep '"tag_name"' \
-  | sed -E 's/.*"([^"]+)".*/\1/' | cut -c2-`
+GH_VERSION=`curl  "https://api.github.com/repos/cli/cli/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c2-`
 
 echo $GH_VERSION
 
-curl -sSL https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz \
-  \ -o gh_${GH_VERSION}_linux_amd64.tar.gz
+curl -sSL https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz -o gh_${GH_VERSION}_linux_amd64.tar.gz
 
 tar xvf gh_${VERSION}_linux_amd64.tar.gz
 sudo cp gh_${VERSION}_linux_amd64/bin/gh /usr/local/bin/
