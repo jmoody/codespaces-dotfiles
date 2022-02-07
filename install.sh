@@ -4,26 +4,30 @@ set -ex
 
 DOTFILES_DIR=$(cd $(dirname "$0")/.. && pwd)
 
-sudo apt update
-
-sudo apt -y install build-essential procps curl file git less
-sudo apt install -y silversearcher-ag
-sudo apt -y install ruby-full
-sudo apt -y install bash-completion
+sudo apt-get -y install build-essential procps curl file git less
+sudo apt-get install -y silversearcher-ag
+sudo apt-get -y install ruby-full
+sudo apt-get -y install bash-completion
 
 
 ### GitHub CLI (gh)
-curl -fsSL \
-  https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-  | dd of=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
-  | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
-sudo apt -y gh
+GH_VERSION=`curl  "https://api.github.com/repos/cli/cli/releases/latest" \
+  | grep '"tag_name"' \
+  | sed -E 's/.*"([^"]+)".*/\1/' | cut -c2-`
+
+echo $GH_VERSION
+
+curl -sSL https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz \
+  \ -o gh_${GH_VERSION}_linux_amd64.tar.gz
+
+tar xvf gh_${VERSION}_linux_amd64.tar.gz
+sudo cp gh_${VERSION}_linux_amd64/bin/gh /usr/local/bin/
+gh version
 
 ### VIM
 
-sudo apt -y install vim
+sudo apt-get -y install vim
 
 # https://github.com/carlhuda/janus
 curl -L https://bit.ly/janus-bootstrap | bash
@@ -32,13 +36,13 @@ ln -s vim/vimrc.after "${DOTFILES_DIR}/.vimrc.after"
 
 ### Golang
 
-sudo apt install -y apt-transport-https gnupg curl
+sudo apt-get install -y apt-get-transport-https gnupg curl
 curl -1sLf 'https://dl.cloudsmith.io/public/go-swagger/go-swagger/gpg.2F8CB673971B5C9E.key' \
-  | sudo apt-key add -
+  | sudo apt-get-key add -
 curl -1sLf 'https://dl.cloudsmith.io/public/go-swagger/go-swagger/config.deb.txt?distro=debian&codename=any-version' \
-  | sudo tee /etc/apt/sources.list.d/go-swagger-go-swagger.list
-sudo apt update
-sudo apt install swagger
+  | sudo tee /etc/apt-get/sources.list.d/go-swagger-go-swagger.list
+sudo apt-get update
+sudo apt-get install swagger
 
 # symlinking
 
