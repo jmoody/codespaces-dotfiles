@@ -1,0 +1,31 @@
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# history handling
+export HISTCONTROL=ignoredups:erasedups
+export HISTSIZE=10000000
+export HISTFILESIZE=10000000
+shopt -s histappend
+shopt -s checkwinsize
+
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a;history -c; history -r"
+
+export VISUAL=less
+export EDITOR=vim
+export GIT_EDITOR="${EDITOR}"
+
+export LC_ALL="en_US.UTF-8"
+
+# Cli Colors
+export CLICOLOR=1
+# use yellow for dir’s
+export LSCOLORS=dxfxcxdxbxegedabagacad
+
+### add ./ to path ###
+export PATH=.:~/bin:$PATH
+
+alias be='bundle exec'
+alias btar='tar --use-compress-program /opt/local/bin/bzip2 '
+alias gsu='git submodule update --init --recursive'
+
+source /etc/profile.d/bash_completion.sh
