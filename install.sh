@@ -27,10 +27,8 @@ sudo apt-get -y install \
 
 banner "zsh"
 
-if ! grep -q "root.*/bin/zsh" /etc/passwd
-then
-  chsh -s /bin/zsh root
-fi
+info "changing shell to $(which zsh) for $(whoami)"
+sudo chsh -s $(which zsh) $(whoami)
 
 banner "starship"
 
