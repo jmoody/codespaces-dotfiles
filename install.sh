@@ -19,9 +19,10 @@ function symlink {
 banner "apt-get"
 
 sudo apt-get update
-sudo apt-get -y install build-essential procps curl file less tree
-sudo apt-get -y install silversearcher-ag
-sudo apt-get -y install bash-completion
+sudo apt-get -y install \
+  build-essential procps curl file \
+  less tree silversearcher-ag bash-completion \
+  tmux
 
 banner "GitHub CLI (gh)"
 
@@ -31,8 +32,8 @@ if [ -f /usr/local/bin/gh ]; then
 else
   info "installing gh..."
   url="https://api.github.com/repos/cli/cli/releases/latest"
-  version=$(curl "${url}" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c2-)
-  info "will instal gh version ${version}"
+  version=$(curl -sSL "${url}" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/' | cut -c2-)
+  info "will install gh version ${version}"
   url="https://github.com/cli/cli/releases/download/v${version}/gh_${version}_linux_amd64.tar.gz"
   curl -sSL ${url} -o gh_${version}_linux_amd64.tar.gz
   tar xvf gh_${version}_linux_amd64.tar.gz
@@ -41,8 +42,6 @@ else
 fi
 
 banner "Installing Go Swagger"
-
-sudo rm /usr/local/bin/swagger
 
 if [ -f /usr/local/bin/swagger ]; then
   version=$(swagger version)
