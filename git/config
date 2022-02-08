@@ -1,29 +1,26 @@
 [user]
-	name = Joshua Moody
-	email = josmoo@microsoft.com
+  name = Joshua Moody
+  email = jmoody@github.com
 [alias]
   co = checkout
   st = status
   br = branch
-  dommit = duet-commit
-  dci = duet-commit
   staged = diff --staged
 
-# Fucking go.
+# golang...
 [url "git@github.com:"]
   insteadOf = https://github.com/
 
 [core]
   editor = vim
-	attributesfile = ~/.gitattributes
-	excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+  excludesfile = ~/.gitignore
 
-[push]
-	default = current
+  default = current
 
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
 
 [merge "localizablestrings"]
   textconv = "iconv -f utf-16 -t utf-8"
@@ -34,34 +31,29 @@
   prompt = false
 
 [diff "plist"]
-	textconv = plutil -convert xml1 -o -
-	cachetextconv = true
+  textconv = plutil -convert xml1 -o -
+  cachetextconv = true
 [filter "plist"]
-	clean = plutil -convert xml1 -o - -
-	smudge = plutil -convert binary1 -o - -
+  clean = plutil -convert xml1 -o - -
+  smudge = plutil -convert binary1 -o - -
 [filter "plist-xml"]
-	clean = plutil -convert xml1 -o - -
+  clean = plutil -convert xml1 -o - -
 [filter "plist-bin"]
-	clean = plutil -convert binary1 -o - -
+  clean = plutil -convert binary1 -o - -
 [url "git@github.com:"]
   insteadOf = https://github.com/
 
 [diff "mobileprovision"]
   textconv = xcrun security cms -D -i
 
-[duet "env"]
-	git-author-initials = jjm
-	git-author-name = Joshua Moody
-	git-author-email = joshuajmoody@gmail.com
-	mtime = 1464677234
 [rerere]
-	enabled = true
+  enabled = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [pull]
-	rebase = false
+  rebase = false
 [init]
-	defaultBranch = main
+  defaultBranch = main

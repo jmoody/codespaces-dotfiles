@@ -12,15 +12,15 @@ echo "DOTFILES_DIR=${DOTFILES_DIR}"
 # $1 source
 # $2 target
 function symlink {
-  ln -sf "${DOTFILES_DIR}/${1}" "${HOME}/${2}"
+  info "${DOTFILES_DIR}/dotfiles/${1} => ${HOME}/${2}"
+  ln -sf "${DOTFILES_DIR}/dotfiles/${1}" "${HOME}/${2}"
 }
 
 banner "apt-get"
 
 sudo apt-get update
-sudo apt-get -y install build-essential procps curl file git less
+sudo apt-get -y install build-essential procps curl file less tree
 sudo apt-get -y install silversearcher-ag
-sudo apt-get -y install ruby-full
 sudo apt-get -y install bash-completion
 
 banner "GitHub CLI (gh)"
@@ -42,13 +42,15 @@ fi
 
 banner "Installing Go Swagger"
 
+sudo rm /usr/local/bin/swagger
+
 if [ -f /usr/local/bin/swagger ]; then
   version=$(swagger version)
   info "swagger ${version} is already installed"
 else
   url="https://api.github.com/repos/go-swagger/go-swagger/releases/latest"
   url=$(curl -s ${url} | jq -r '.assets[] | select(.name | contains("'"$(uname | tr '[:upper:]' '[:lower:]')"'_amd64")) | .browser_download_url')
-  sudo curl -o /usr/local/bin/swagger -L'#' "$url"
+  sudo curl -sSL "${url}" -o /usr/local/bin/swagger
   sudo chmod +x /usr/local/bin/swagger
   info "installed swagger ${version}"
 fi
@@ -57,11 +59,23 @@ banner "vim"
 
 sudo apt-get -y install vim
 # https://github.com/carlhuda/janus
-curl -L https://bit.ly/janus-bootstrap | bash
-ln -sf ${DOTFILES_DIR}/vim/vimrc.before "${HOME}/.vimrc.before"
-ln -sf vim/vimrc.after "${DOTFILES_DIR}/.vimrc.after"
+curl -sSL https://bit.ly/janus-bootstrap | bash
+symlink vim/vimrc.before .vimrc.before
+symlink vim/vimrc.after .vimrc.after
+
+banner "ruby"
+
+if [[ $(ruby --version | ag 3.1.0) ]]; then
+  info "$(ruby --version)"
+else
+  version="3.1.0"
+  info "installing ruby ${version}"
+  rbenv install 3.1.0
+  rbenv global 3.1.0
+fi
 
 banner "symlinking"
+
 symlink bash/bash_profile .bash_profile
 symlink bin bin
 mkdir -p "${HOME}/.bundle"
