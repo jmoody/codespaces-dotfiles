@@ -5,6 +5,7 @@ set -ex
 sudo apt-get update
 
 DOTFILES_DIR=$(cd $(dirname "$0")/.. && pwd)
+echo "DOTFILES_DIR=${DOTFILES_DIR}"
 
 sudo apt-get -y install build-essential procps curl file git less
 sudo apt-get install -y silversearcher-ag
@@ -32,14 +33,6 @@ sudo apt-get -y install vim
 curl -L https://bit.ly/janus-bootstrap | bash
 ln -s vim/vimrc.before "${DOTFILES_DIR}/.vimrc.before"
 ln -s vim/vimrc.after "${DOTFILES_DIR}/.vimrc.after"
-
-### Golang
-
-download_url=$(curl -s https://api.github.com/repos/go-swagger/go-swagger/releases/latest | \
-  jq -r '.assets[] | select(.name | contains("'"$(uname | tr '[:upper:]' '[:lower:]')"'_amd64")) | .browser_download_url')
-sudo curl -o /usr/local/bin/swagger -L'#' "$download_url"
-sudo chmod +x /usr/local/bin/swagger
-swagger version
 
 # symlinking
 
