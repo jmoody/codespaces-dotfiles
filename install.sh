@@ -2,6 +2,8 @@
 
 set -ex
 
+sudo apt-get update
+
 DOTFILES_DIR=$(cd $(dirname "$0")/.. && pwd)
 
 sudo apt-get -y install build-essential procps curl file git less
@@ -33,14 +35,10 @@ ln -s vim/vimrc.after "${DOTFILES_DIR}/.vimrc.after"
 
 ### Golang
 
-sudo apt-get install -y apt-get-transport-https gnupg curl
-curl -1sLf 'https://dl.cloudsmith.io/public/go-swagger/go-swagger/gpg.2F8CB673971B5C9E.key' \
-  | sudo apt-get-key add -
-curl -1sLf 'https://dl.cloudsmith.io/public/go-swagger/go-swagger/config.deb.txt?distro=debian&codename=any-version' \
-  | sudo tee /etc/apt-get/sources.list.d/go-swagger-go-swagger.list
-sudo apt-get update
-sudo apt-get install swagger
+docker pull quay.io/goswagger/swagger
+alias swagger='docker run --rm -it  --user $(id -u):$(id -g) -e GOPATH=$(go env GOPATH):/go -v $HOME:$HOME -w $(pwd) quay.io/goswagger/swagger'
 
+swagger version
 # symlinking
 
 ln -s bash/bash_profile "${DOTFILES_DIR}/.bash_profile"
