@@ -1,0 +1,81 @@
+
+## History wrapper
+function omz_history {
+  local clear list
+  zparseopts -E c=clear l=list
+
+  if [[ -n "$clear" ]]; then
+    # if -c provided, clobber the history file
+    echo -n >| "$HISTFILE"
+    fc -p "$HISTFILE"
+    echo >&2 History file deleted.
+  elif [[ -n "$list" ]]; then
+    # if -l provided, run as if calling `fc' directly
+    builtin fc "$@"
+  else
+    # unless a number is provided, show all history events (starting from 1)
+    [[ ${@[-1]-} = *[0-9]* ]] && builtin fc -l "$@" || builtin fc -l "$@" 1
+  fi
+}
+
+# Timestamp format
+case ${HIST_STAMPS-} in
+  "mm/dd/yyyy") alias history='omz_history -f' ;;
+  "dd.mm.yyyy") alias history='omz_history -E' ;;
+  "yyyy-mm-dd") alias history='omz_history -i' ;;
+  "") alias history='omz_history' ;;
+  *) alias history="omz_history -t '$HIST_STAMPS'" ;;
+esac
+
+## History file configuration
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
+[ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
+[ "$SAVEHIST" -lt 10000 ] && SAVEHIST=10000
+
+## History command configuration
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt share_history          # share command history data
+
+# Immediately append to the history file, not just when a term is killed
+setopt incappendhistory
+
+export VISUAL=less
+export EDITOR=vim
+export GIT_EDITOR="${EDITOR}"
+export ANSIBLE_NOCOWS=1
+
+# vi keybindings
+#bindkey -v
+#bindkey -rpM viins '^[^['
+
+# https://stackoverflow.com/questions/18240683/how-to-force-emacs-style-status-keys-in-tmux
+bindkey -e
+
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US"
+
+export CLICOLOR=1
+# use yellow for directories
+export LSCOLORS=dxfxcxdxbxegedabagacad
+
+alias be='bundle exec'
+alias gsu='git submodule update --init --recursive'
+alias hb='gh repo view --web'
+alias ll='ls -al --color=tty'
+export PATH="${HOME}/bin:${PATH}"
+export PATH="${HOME}/.cargo/bin:${PATH}"
+
+export PATH="./:${PATH}"
+
+setopt interactivecomments
+autoload -Uz compinit && compinit
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(rbenv init - bash)"
+
+eval "$(starship init zsh)"

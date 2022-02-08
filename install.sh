@@ -22,7 +22,22 @@ sudo apt-get update
 sudo apt-get -y install \
   build-essential procps curl file \
   less tree silversearcher-ag bash-completion \
-  tmux
+  tmux zsh fzf \
+  fonts-firacode
+
+banner "zsh"
+
+if ! grep -q "root.*/bin/zsh" /etc/passwd
+then
+  chsh -s /bin/zsh root
+fi
+
+banner "starship"
+
+curl -fsSL https://starship.rs/install.sh -o install_starship.sh
+chmod +x install_starship.sh
+sudo ./install_starship.sh --force -y
+rm ./install_starship.sh
 
 banner "GitHub CLI (gh)"
 
@@ -75,7 +90,8 @@ fi
 
 banner "symlinking"
 
-symlink bash/bash_profile .bash_profile
+symlink bash/bashrc .bashrc
+symlink bash/fzf.bash .zsf.bash
 symlink bin bin
 mkdir -p "${HOME}/.bundle"
 symlink bundler/config .bundle/config
@@ -84,3 +100,6 @@ symlink git/config .gitconfig
 symlink git/attributes .gitattributes
 symlink git/ignore .gitignore
 symlink tmux/tmux.conf .tmux.conf
+symlink starship/starship.toml .config/starship.toml
+symlink zsh/zshrc .zshrc
+symlink zsh/fzf.zsh .zsf.zsh
