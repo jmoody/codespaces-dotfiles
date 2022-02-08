@@ -7,10 +7,6 @@
   br = branch
   staged = diff --staged
 
-# golang...
-[url "git@github.com:"]
-  insteadOf = https://github.com/
-
 [core]
   editor = vim
   attributesfile = ~/.gitattributes
@@ -40,8 +36,6 @@
   clean = plutil -convert xml1 -o - -
 [filter "plist-bin"]
   clean = plutil -convert binary1 -o - -
-[url "git@github.com:"]
-  insteadOf = https://github.com/
 
 [diff "mobileprovision"]
   textconv = xcrun security cms -D -i
