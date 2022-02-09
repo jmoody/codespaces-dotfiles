@@ -86,41 +86,41 @@ disabled = true
 disabled = true
 
 [git_branch]
-symbol = " "
+symbol = "branch "
 style = "bold yellow"
 
 [git_state]
-cherry_pick = "🍒 PICKING"
+cherry_pick = "CHERRY PICKING"
 style = "bold purple"
 format = '\([$state( $progress_current of $progress_total)]($style)\) '
 
 [git_status]
-stashed = ""
+stashed = "!"
 
 [golang]
-symbol = " "
+symbol = "go "
 
 [java]
 disabled = true
 
 [kubernetes]
-symbol = "☸️ "
+symbol = "k8 "
 disabled = true
 
 [nodejs]
-symbol = " "
+symbol = "node "
 
 [package]
 disabled = true
 
 [ruby]
-symbol = " "
+symbol = "ruby  "
 
 [rust]
-symbol = " "
+symbol = "rust "
 
 [swift]
-symbol = "ﯣ "
+symbol = "swift "
 
 [terraform]
 disabled = true
