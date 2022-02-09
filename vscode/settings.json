@@ -1,0 +1,77 @@
+{
+  "cSpell.userWords": [
+    "Deletable",
+    "FRONTDOOR",
+    "npmjs",
+    "posttest",
+    "rword",
+    "spife",
+    "unauthenticate",
+    "wubwub"
+    "labelledby",
+    "tablist",
+    "tabpanel"
+  ],
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.idea": true,
+    "**/.svn": true,
+    "**/.vs": true,
+    "**/CVS": true,
+    "coverage": true,
+    ".nyc_output": true,
+    "node_modules": true
+  },
+  "explorer.confirmDelete": false,
+  "debug.javascript.pickAndAttachOptions": {},
+  "debug.javascript.autoAttachFilter": "disabled",
+  "window.zoomLevel": 3,
+  "liveshare.authenticationProvider": "GitHub",
+  "workbench.editor.enablePreview": false,
+  // Disabling tabs during LiveShare sessions can be helpful
+  "workbench.editor.showTabs": false,
+  "explorer.openEditors.visible": 0,
+  "yaml.customTags": [
+    "!encrypted/pkcs1-oaep scalar",
+    "!vault scalar"
+  ],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "terminal.integrated.tabs.enabled": true,
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "dotfiles.repository": "https://github.com/jmoody/codespaces-dotfiles",
+
+  "editor.copyWithSyntaxHighlighting": false,
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "editor.useTabStops": true,
+  "editor.detectIndentation": false,
+  "git.ignoreLimitWarning": true,
+  "editor.tabSize": 2,
+  "editor.cursorStyle": "block",
+  "editor.insertSpaces": false,
+  "editor.lineNumbers": "on",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "editor.wordWrap": "off",
+  "redhat.telemetry.enabled": true,
+  "editor.fontSize": 10,
+  "editor.mouseWheelZoom": true,
+  "markdown.preview.fontSize": 10,
+  "terminal.integrated.fontSize": 10,
+  "mermaid.gantt.fontSize": 10,
+  "debug.console.fontSize": 10,
+  "editor.minimap.enabled": false,
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": false,
+    "markdown": false
+  },
+  "go.toolsManagement.autoUpdate": true,
+  "editor.renderWhitespace": "all",
+  "workbench.startupEditor": "none",
+  "files.autoSave": "onFocusChange"
+}

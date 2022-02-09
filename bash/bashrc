@@ -30,6 +30,10 @@ alias gsu='git submodule update --init --recursive'
 
 source /etc/profile.d/bash_completion.sh
 
+export PATH="${HOME}/bin:${PATH}"
+export PATH="${HOME}/.cargo/bin:${PATH}"
+export PATH="./:${PATH}"
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 eval "$(rbenv init - bash)"
 eval "$(starship init bash)"
