@@ -51,6 +51,7 @@ else
   curl -sSL ${url} -o gh_${version}_linux_amd64.tar.gz
   tar xvf gh_${version}_linux_amd64.tar.gz
   sudo cp gh_${version}_linux_amd64/bin/gh /usr/local/bin/
+  sudo rm -rf gh_${version}_linux_amd64*
   info "installed gh ${version}"
 fi
 
@@ -90,7 +91,7 @@ banner "symlinking"
 
 symlink bash/bashrc .bashrc
 symlink bash/fzf.bash .zsf.bash
-symlink bin bin
+symlink bin "/"
 mkdir -p "${HOME}/.bundle"
 symlink bundler/config .bundle/config
 symlink gem/gemrc .gemrc

@@ -2,4 +2,4 @@
 
 set -e
 
-pushd /workspaces/.codespaces/.persistedshare/dotfiles
+cd /workspaces/.codespaces/.persistedshare/dotfiles

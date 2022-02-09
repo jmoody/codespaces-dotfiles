@@ -27,6 +27,7 @@ export PATH=.:~/bin:$PATH
 alias be='bundle exec'
 alias btar='tar --use-compress-program /opt/local/bin/bzip2 '
 alias gsu='git submodule update --init --recursive'
+alias cd-dotfiles=". ${HOME}/bin/cd-dotfiles.sh"
 
 source /etc/profile.d/bash_completion.sh
 
