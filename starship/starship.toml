@@ -1,0 +1,126 @@
+
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+format = """
+$username\
+$hostname\
+$shlvl\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$dart\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$kotlin\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$purescript\
+$python\
+$ruby\
+$rust\
+$swift\
+$terraform\
+$vagrant\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+${custom.vpn}\
+$env_var\
+$crystal\
+$custom\
+$cmd_duration\
+$line_break\
+$lua\
+$jobs\
+$battery\
+$time\
+$status\
+$character"""
+
+## Replace the "❯" symbol in the prompt with "➜"
+#[character]                   # The name of the module we are configuring is "character"
+#success_symbol = " (bold green)"
+#error_symbol = "> (bold red)"
+#vicmd_symbol = "> (bold green)"
+
+[aws]
+disabled = true
+
+[conda]
+disabled = true
+
+[directory]
+truncation_length = 200
+truncate_to_repo = false
+format = "[$path]($style)\n"
+home_symbol = "/Users/moody"
+
+[docker_context]
+symbol = " "
+
+[dotnet]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[git_branch]
+symbol = " "
+style = "bold yellow"
+
+[git_state]
+cherry_pick = "🍒 PICKING"
+style = "bold purple"
+format = '\([$state( $progress_current of $progress_total)]($style)\) '
+
+[git_status]
+stashed = ""
+
+[golang]
+symbol = " "
+
+[java]
+disabled = true
+
+[kubernetes]
+symbol = "☸️ "
+disabled = true
+
+[nodejs]
+symbol = " "
+
+[package]
+disabled = true
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[swift]
+symbol = "ﯣ "
+
+[terraform]
+disabled = true
