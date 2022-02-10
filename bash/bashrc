@@ -40,7 +40,7 @@ GOPRIVATE=
 GONOPROXY=
 GONOSUMDB=github.com/github/*
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf/fzf.bash ] && source ~/.fzf/fzf.bash
 
 if [ -f /usr/local/bin/rbenv ]; then
   eval "$(rbenv init - bash)"

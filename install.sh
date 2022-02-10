@@ -120,10 +120,10 @@ fi
 banner "symlinking"
 
 symlink bash/bashrc .bashrc
-symlink bash/fzf.bash .zsf.bash
 symlink bin "/"
 mkdir -p "${HOME}/.bundle"
 symlink bundler/config .bundle/config
+symlink fzf .fzf
 symlink gem/gemrc .gemrc
 symlink git/config .gitconfig
 symlink git/attributes .gitattributes
@@ -131,4 +131,3 @@ symlink git/ignore .gitignore
 symlink tmux/tmux.conf .tmux.conf
 symlink starship/starship.toml .config/starship.toml
 symlink zsh/zshrc .zshrc
-symlink zsh/fzf.zsh .zsf.zsh

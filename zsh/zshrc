@@ -80,7 +80,7 @@ GONOSUMDB=github.com/github/*
 setopt interactivecomments
 autoload -Uz compinit && compinit
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf/fzf.zsh ] && source ~/.fzf/fzf.zsh
 
 if [ -f /usr/local/bin/rbenv ]; then
   eval "$(rbenv init - bash)"
