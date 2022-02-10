@@ -4,6 +4,8 @@ set -e
 
 source script/log.sh
 
+mkdir -p "${HOME}/.config"
+
 banner "ENV"
 
 DOTFILES_DIR=$(cd $(dirname "$0")/.. && pwd)
@@ -90,6 +92,24 @@ sudo apt-get -y install vim
 curl -sSL https://bit.ly/janus-bootstrap | bash
 symlink vim/vimrc.before .vimrc.before
 symlink vim/vimrc.after .vimrc.after
+
+banner "exercism"
+
+if [ -f /usr/local/bin/exercism ]; then
+  info "$(exercism version)"
+else
+  version="3.0.13"
+  release="exercism-${version}-linux-x86_64"
+  mkdir -p "exercism"
+  url="https://github.com/exercism/cli/releases/download/v${version}/${release}.tar.gz"
+  curl -sSL "${url}" -o "exercism/${release}.tar.gz"
+  pushd "exercism"
+    tar xvf "${release}.tar.gz"
+    sudo mv exercism /usr/local/bin/
+  popd
+  rm -rf exercism
+  info "installed $(exercism version)"
+fi
 
 banner "symlinking"
 
