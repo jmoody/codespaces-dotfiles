@@ -36,5 +36,9 @@ export PATH="${HOME}/.cargo/bin:${PATH}"
 export PATH="./:${PATH}"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-eval "$(rbenv init - bash)"
+
+if [ -f /usr/local/bin/rbenv ]; then
+  eval "$(rbenv init - bash)"
+fi
+
 eval "$(starship init bash)"

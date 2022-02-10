@@ -72,7 +72,7 @@ fi
 
 banner "ruby"
 
-if [[ $(which rbenv) ]]; then
+if [ -f /usr/local/bin/rbenv ]; then
   if [[ $(ruby --version | ag 3.1.0) ]]; then
     info "$(ruby --version)"
   else
