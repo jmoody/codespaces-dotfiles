@@ -57,7 +57,7 @@ else
   info "installed gh ${version}"
 fi
 
-banner "Installing Go Swagger"
+banner "Go Swagger"
 
 if [ -f /usr/local/bin/swagger ]; then
   version=$(swagger version)
@@ -84,6 +84,12 @@ if [ -f /usr/local/bin/rbenv ]; then
 else
   sudo apt-get -y install ruby-full
 fi
+
+banner "goproxy/netrc"
+
+echo "machine goproxy.githubapp.com login jmoody password ${GOPROXY_PAT}" > "${HOME}/.netrc"
+
+info "set up goproxy in ${HOME}/.netrc"
 
 banner "vim"
 
