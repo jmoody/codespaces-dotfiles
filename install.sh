@@ -14,8 +14,13 @@ echo "DOTFILES_DIR=${DOTFILES_DIR}"
 # $1 source
 # $2 target
 function symlink {
-  info "${DOTFILES_DIR}/dotfiles/${1} => ${HOME}/${2}"
-  ln -sf "${DOTFILES_DIR}/dotfiles/${1}" "${HOME}/${2}"
+  if [ "${2}" = "/" ]; then
+    info "${DOTFILES_DIR}/dotfiles/${1} => ${HOME}/bin"
+    ln -sf "${DOTFILES_DIR}/dotfiles/${1}" "${HOME}/"
+  else
+    info "${DOTFILES_DIR}/dotfiles/${1} => ${HOME}/${2}"
+    ln -sf "${DOTFILES_DIR}/dotfiles/${1}" "${HOME}/${2}"
+  fi
 }
 
 banner "apt-get"
