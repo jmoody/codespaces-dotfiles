@@ -70,6 +70,24 @@ else
   info "installed swagger ${version}"
 fi
 
+banner "k9s"
+
+if [ -f /usr/local/bin/k9s ]; then
+  k9s version
+else
+  version="v0.25.18"
+  mkdir -p tmp/k9s
+  curl -sSL \
+    https://github.com/derailed/k9s/releases/download/${version}/k9s_Linux_x86_64.tar.gz \
+    -o tmp/k9s/k9s_Linux_x86_64.tar.gz
+  pushd tmp/k9s
+  tar xvf k9s_Linux_x86_64.tar.gz
+  sudo cp k9s /usr/local/bin
+  popd
+  rm -rf tmp
+  info "installed k9s ${version}"
+fi
+
 banner "ruby"
 
 if [ -f /usr/local/bin/rbenv ]; then
