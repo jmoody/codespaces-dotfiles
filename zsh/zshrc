@@ -86,4 +86,6 @@ if [ -f /usr/local/bin/rbenv ]; then
   eval "$(rbenv init - bash)"
 fi
 
+source <(kubectl completion zsh)
+
 eval "$(starship init zsh)"

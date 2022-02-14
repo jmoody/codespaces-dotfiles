@@ -46,4 +46,6 @@ if [ -f /usr/local/bin/rbenv ]; then
   eval "$(rbenv init - bash)"
 fi
 
+source <(kubectl completion bash)
+
 eval "$(starship init bash)"
