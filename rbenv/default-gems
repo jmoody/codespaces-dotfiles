@@ -1,0 +1,7 @@
+bundler
+rake
+rubygems-update
+pry
+bundle-audit
+irb
+json

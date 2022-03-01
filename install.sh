@@ -30,7 +30,15 @@ sudo apt-get -y install \
   build-essential procps curl file \
   less tree silversearcher-ag bash-completion \
   tmux zsh fzf \
-  fonts-firacode
+  fonts-firacode \
+  libssl-dev zlib1g-dev libreadline-dev autoconf bison libyaml-dev libncurses6 libffi-dev libgdbm-dev
+
+if [ -f /usr/local/bin/ruby ]; then
+  sudo apt remove -y ruby
+  sudo apt clean
+  sudo apt autoremove -y
+  sudo apt -f install
+fi
 
 banner "zsh"
 
@@ -95,18 +103,7 @@ fi
 
 banner "ruby"
 
-if [ -f /usr/local/bin/rbenv ]; then
-  if [[ $(ruby --version | ag 3.1.0) ]]; then
-    info "$(ruby --version)"
-  else
-    version="3.1.0"
-    info "installing ruby ${version}"
-    rbenv install 3.1.0
-    rbenv global 3.1.0
-  fi
-else
-  sudo apt-get -y install ruby-full
-fi
+"${DOTFILES_DIR}/dotfiles/rbenv/install.sh" "${DOTFILES_DIR}"
 
 banner "goproxy/netrc"
 
@@ -121,6 +118,16 @@ sudo apt-get -y install vim
 curl -sSL https://bit.ly/janus-bootstrap | bash
 symlink vim/vimrc.before .vimrc.before
 symlink vim/vimrc.after .vimrc.after
+
+
+if [ -d  ~/.vim/pack/vendor/start/indentLine ]; then
+  cd ~/.vim/pack/vendor/start/indentLine && git pull
+else
+  mkdir -p ~/.vim/pack/vendor/start/indentLine
+  git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
+fi
+
+vim -u NONE -c "helptags  ~/.vim/pack/vendor/start/indentLine/doc" -c "q"
 
 banner "exercism"
 
