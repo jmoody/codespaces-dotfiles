@@ -95,18 +95,7 @@ fi
 
 banner "ruby"
 
-if [ -f /usr/local/bin/rbenv ]; then
-  if [[ $(ruby --version | ag 3.1.0) ]]; then
-    info "$(ruby --version)"
-  else
-    version="3.1.0"
-    info "installing ruby ${version}"
-    rbenv install 3.1.0
-    rbenv global 3.1.0
-  fi
-else
-  sudo apt-get -y install ruby-full
-fi
+"${DOTFILES_DIR}/rbenv/install.sh" "${DOTFILES_DIR}"
 
 banner "goproxy/netrc"
 
@@ -121,6 +110,10 @@ sudo apt-get -y install vim
 curl -sSL https://bit.ly/janus-bootstrap | bash
 symlink vim/vimrc.before .vimrc.before
 symlink vim/vimrc.after .vimrc.after
+
+mkdir -p ~/.vim/pack/vendor/start/indentLine
+git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
+vim -u NONE -c "helptags  ~/.vim/pack/vendor/start/indentLine/doc" -c "q"
 
 banner "exercism"
 
