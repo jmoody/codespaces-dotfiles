@@ -4,7 +4,7 @@ set -e
 
 source script/log.sh
 
-DOTFILES_DIR=${1}"
+DOTFILES_DIR="${1}"
 RBENV_DIR="${HOME}/.rbenv"
 
 if [ ! -d "${RBENV_DIR}" ]; then
@@ -23,7 +23,6 @@ else
   cd "${RBENV_DIR}" && git pull
   cd "${RBENV_DIR}/plugins/ruby-build" && git pull
   cd "${RBENV_DIR}/plugins/rbenv-default-gems" && git pull
+  gem update --system
+  gem update
 fi
-
-gem update --system
-

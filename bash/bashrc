@@ -42,7 +42,7 @@ GONOSUMDB=github.com/github/*
 
 [ -f ~/.fzf/fzf.bash ] && source ~/.fzf/fzf.bash
 
-if [ -f "${HOME}/.rbenv" ]; then
+if [ -d "${HOME}/.rbenv" ]; then
   export PATH="${HOME}/.rbenv/bin:${PATH}"
   eval "$(rbenv init - bash)"
 fi
