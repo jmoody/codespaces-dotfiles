@@ -5,6 +5,7 @@ set -e
 source script/log.sh
 
 DOTFILES_DIR="${1}"
+RUBY_VERSION="${2}"
 RBENV_DIR="${HOME}/.rbenv"
 
 if [ ! -d "${RBENV_DIR}" ]; then
@@ -17,12 +18,15 @@ if [ ! -d "${RBENV_DIR}" ]; then
     "${RBENV_DIR}/plugins/rbenv-default-gems"
   ln -sf "${DOTFILES_DIR}/dotfiles/rbenv/default-gems" "${RBENV_DIR}"
   ln -sf "${DOTFILES_DIR}/dotfiles/rbenv/gemrc" "${RBENV_DIR}"
-  rbenv install 3.1.0
-  rbenv global 3.1.0
+  rbenv install "${RUBY_VERSION}"
+  rbenv global "${RUBY_VERSION}"
 else
+  export PATH="${RBENV_DIR}/bin:${PATH}"
+  eval "$(rbenv init - bash)"
   cd "${RBENV_DIR}" && git pull
   cd "${RBENV_DIR}/plugins/ruby-build" && git pull
   cd "${RBENV_DIR}/plugins/rbenv-default-gems" && git pull
+
   gem update --system
   gem update
 fi

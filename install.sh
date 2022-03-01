@@ -103,7 +103,11 @@ fi
 
 banner "ruby"
 
-"${DOTFILES_DIR}/dotfiles/rbenv/install.sh" "${DOTFILES_DIR}"
+"${DOTFILES_DIR}/dotfiles/rbenv/install.sh" "${DOTFILES_DIR}" "3.1.0"
+
+# for subsequent installs that require rake
+export PATH="${HOME}/.rbenv/bin:${PATH}"
+eval "$(rbenv init - bash)"
 
 banner "goproxy/netrc"
 
@@ -120,14 +124,15 @@ symlink vim/vimrc.before .vimrc.before
 symlink vim/vimrc.after .vimrc.after
 
 
-if [ -d  ~/.vim/pack/vendor/start/indentLine ]; then
-  cd ~/.vim/pack/vendor/start/indentLine && git pull
+INDENT_LINE="${HOME}/.vim/pack/vendor/start/indentLine"
+if [ -d  "${INDENT_LINE}" ]; then
+  cd "${INDENT_LINE}" && git pull
 else
-  mkdir -p ~/.vim/pack/vendor/start/indentLine
-  git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
+  mkdir -p "${HOME}/.vim/pack/vendor/start"
+  git clone https://github.com/Yggdroot/indentLine.git "${INDENT_LINE}"
 fi
 
-vim -u NONE -c "helptags  ~/.vim/pack/vendor/start/indentLine/doc" -c "q"
+vim -u NONE -c "helptags  ${INDENT_LINE}/doc" -c "q"
 
 banner "exercism"
 
