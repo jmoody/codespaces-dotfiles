@@ -22,7 +22,6 @@ set lazyredraw
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
 
-runtime macros/matchit.vim
 
 set wildmode=longest,list,full
 set wildmenu
@@ -37,8 +36,3 @@ set smartindent
 set tabstop=2
 set shiftwidth=2
 set expandtab
-
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>

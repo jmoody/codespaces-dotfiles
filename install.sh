@@ -31,6 +31,8 @@ sudo apt-get -y install \
   less tree silversearcher-ag bash-completion \
   tmux zsh fzf \
   fonts-firacode \
+  vim \
+  jq \
   libssl-dev zlib1g-dev libreadline-dev autoconf bison libyaml-dev libncurses6 libffi-dev libgdbm-dev
 
 if [ -f /usr/local/bin/ruby ]; then
@@ -70,87 +72,11 @@ else
   info "installed gh ${version}"
 fi
 
-banner "Go Swagger"
-
-if [ -f /usr/local/bin/swagger ]; then
-  version=$(swagger version)
-  info "swagger ${version} is already installed"
-else
-  url="https://api.github.com/repos/go-swagger/go-swagger/releases/latest"
-  url=$(curl -s ${url} | jq -r '.assets[] | select(.name | contains("'"$(uname | tr '[:upper:]' '[:lower:]')"'_amd64")) | .browser_download_url')
-  sudo curl -sSL "${url}" -o /usr/local/bin/swagger
-  sudo chmod +x /usr/local/bin/swagger
-  info "installed swagger ${version}"
-fi
-
-banner "k9s"
-
-if [ -f /usr/local/bin/k9s ]; then
-  k9s version
-else
-  version="v0.25.18"
-  mkdir -p tmp/k9s
-  curl -sSL \
-    https://github.com/derailed/k9s/releases/download/${version}/k9s_Linux_x86_64.tar.gz \
-    -o tmp/k9s/k9s_Linux_x86_64.tar.gz
-  pushd tmp/k9s
-  tar xvf k9s_Linux_x86_64.tar.gz
-  sudo cp k9s /usr/local/bin
-  popd
-  rm -rf tmp
-  info "installed k9s ${version}"
-fi
-
-banner "ruby"
-
-"${DOTFILES_DIR}/dotfiles/rbenv/install.sh" "${DOTFILES_DIR}" "3.1.0"
-
-# for subsequent installs that require rake
-export PATH="${HOME}/.rbenv/bin:${PATH}"
-eval "$(rbenv init - bash)"
-
 banner "goproxy/netrc"
 
 echo "machine goproxy.githubapp.com login jmoody password ${GOPROXY_PAT}" > "${HOME}/.netrc"
 
 info "set up goproxy in ${HOME}/.netrc"
-
-banner "vim"
-
-sudo apt-get -y install vim
-# https://github.com/carlhuda/janus
-curl -sSL https://bit.ly/janus-bootstrap | bash
-symlink vim/vimrc.before .vimrc.before
-symlink vim/vimrc.after .vimrc.after
-
-
-INDENT_LINE="${HOME}/.vim/pack/vendor/start/indentLine"
-if [ -d  "${INDENT_LINE}" ]; then
-  cd "${INDENT_LINE}" && git pull
-else
-  mkdir -p "${HOME}/.vim/pack/vendor/start"
-  git clone https://github.com/Yggdroot/indentLine.git "${INDENT_LINE}"
-fi
-
-vim -u NONE -c "helptags  ${INDENT_LINE}/doc" -c "q"
-
-banner "exercism"
-
-if [ -f /usr/local/bin/exercism ]; then
-  info "$(exercism version)"
-else
-  version="3.0.13"
-  release="exercism-${version}-linux-x86_64"
-  mkdir -p "exercism"
-  url="https://github.com/exercism/cli/releases/download/v${version}/${release}.tar.gz"
-  curl -sSL "${url}" -o "exercism/${release}.tar.gz"
-  pushd "exercism"
-    tar xvf "${release}.tar.gz"
-    sudo mv exercism /usr/local/bin/
-  popd
-  rm -rf exercism
-  info "installed $(exercism version)"
-fi
 
 banner "symlinking"
 
@@ -166,3 +92,4 @@ symlink git/ignore .gitignore
 symlink tmux/tmux.conf .tmux.conf
 symlink starship/starship.toml .config/starship.toml
 symlink zsh/zshrc .zshrc
+symlink vim/dotvimrc .vimrc
