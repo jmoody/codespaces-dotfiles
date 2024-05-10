@@ -27,13 +27,9 @@ banner "apt-get"
 
 sudo apt-get update
 sudo apt-get -y install \
-  build-essential procps curl file \
-  less tree silversearcher-ag bash-completion \
-  tmux zsh fzf \
-  fonts-firacode \
-  vim \
-  jq \
-  libssl-dev zlib1g-dev libreadline-dev autoconf bison libyaml-dev libncurses6 libffi-dev libgdbm-dev
+  bash zsh \
+  curl file tree silversearcher-ag bash-completion \
+  tmux fzf vim jq
 
 if [ -f /usr/local/bin/ruby ]; then
   sudo apt remove -y ruby
