@@ -28,15 +28,9 @@ banner "apt-get"
 sudo apt-get update
 sudo apt-get -y install \
   bash zsh \
+  neovim \
   curl file tree silversearcher-ag bash-completion \
-  tmux fzf vim jq
-
-if [ -f /usr/local/bin/ruby ]; then
-  sudo apt remove -y ruby
-  sudo apt clean
-  sudo apt autoremove -y
-  sudo apt -f install
-fi
+  tmux fzf jq
 
 banner "zsh"
 
@@ -76,9 +70,13 @@ info "set up goproxy in ${HOME}/.netrc"
 
 banner "symlinking"
 
+mkdir -p "${HOME}/.bundle"
+mkdir -p "${HOME}/.config"
+mkdir -p "${HOME}/.config/nvim"
+mkdir -p "${HOME}/tmp"
+
 symlink bash/bashrc .bashrc
 symlink bin "/"
-mkdir -p "${HOME}/.bundle"
 symlink bundler/config .bundle/config
 symlink fzf .fzf
 symlink gem/gemrc .gemrc
@@ -88,4 +86,4 @@ symlink git/ignore .gitignore
 symlink tmux/tmux.conf .tmux.conf
 symlink starship/starship.toml .config/starship.toml
 symlink zsh/zshrc .zshrc
-symlink vim/dotvimrc .vimrc
+symlink nvim/init.vim .config/nvim/init.vim
