@@ -28,7 +28,6 @@ banner "apt-get"
 sudo apt-get update
 sudo apt-get -y install \
   bash zsh \
-  neovim \
   curl file tree silversearcher-ag bash-completion \
   tmux fzf jq
 
@@ -87,3 +86,35 @@ symlink tmux/tmux.conf .tmux.conf
 symlink starship/starship.toml .config/starship.toml
 symlink zsh/zshrc .zshrc
 symlink nvim/init.vim .config/nvim/init.vim
+
+banner "neovim: binary"
+
+sudo rm -rf "${HOME}/tmp/nvim.appimage"
+sudo rm -rf "${HOME}/tmp/squashfs-root"
+
+curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o "${HOME}/tmp/nvim.appimage"
+set +e
+$(
+	cd "${HOME}/tmp"
+	chmod u+x nvim.appimage
+	./nvim.appimage --appimage-extract
+	sudo mv ./squashfs-root/usr/bin/nvim /usr/local/bin/nvim
+	sudo chown -R $(whoami) squashfs-root
+	sudo rm -rf "${HOME}/tmp/squashfs-root"
+)
+set -e
+
+banner "neovim: fnm (fast node manager)"
+
+sudo rm -rf "${HOME}/.fnm"
+curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell --install-dir "${HOME}/.fnm"
+"${HOME}/.fnm/fnm" install v18
+"${HOME}/.fnm/fnm" default v18
+
+banner "neovim: neovim node package"
+npm install -g neovim --silent --no-audit --no-fund --no-progress
+
+banner "neovim: ruby gem"
+sudo gem install neovim
+
+

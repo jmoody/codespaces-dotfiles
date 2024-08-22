@@ -56,6 +56,8 @@ set noerrorbells
 
 syntax on
 
+let g:loaded_perl_provider=0
+
 " PLUGINS ----------------------------------------------------------------
 
 " Install Plug if it's not already
