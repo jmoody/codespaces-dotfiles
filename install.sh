@@ -28,8 +28,37 @@ banner "apt-get"
 sudo apt-get update
 sudo apt-get -y install \
   bash zsh \
+  vim \
   curl file tree silversearcher-ag bash-completion \
   tmux fzf jq
+
+if ! command -v gem &> /dev/null; then
+  sudo apt-get install -y ruby-full
+  echo "installed gem version: $(gem --version)"
+  echo "installed ruby version: $(ruby --version)"
+else
+  echo "gem is already installed: $(gem --version)"
+  echo "ruby is already installed: $(ruby --version)"
+fi
+
+if ! command -v node &> /dev/null; then
+  echo "Node.js is not installed. Installing Node.js..."
+  curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+
+elif [[ $(node -v | cut -d'.' -f1 | sed 's/v//') -lt 18 ]]; then
+  echo "Node.js version is less than 18. Installing Node.js v18..."
+  curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+  sudo apt-get install -y nodejs
+
+else
+  echo "Node.js version $(node -v) is already installed."
+fi
+
+sudo rm -rf "${HOME}/.fnm"
+curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell --install-dir "${HOME}/.fnm"
+"${HOME}/.fnm/fnm" install v18
+"${HOME}/.fnm/fnm" default v18
 
 banner "zsh"
 
@@ -103,13 +132,6 @@ $(
 	sudo rm -rf "${HOME}/tmp/squashfs-root"
 )
 set -e
-
-banner "neovim: fnm (fast node manager)"
-
-sudo rm -rf "${HOME}/.fnm"
-curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell --install-dir "${HOME}/.fnm"
-"${HOME}/.fnm/fnm" install v18
-"${HOME}/.fnm/fnm" default v18
 
 banner "neovim: neovim node package"
 npm install -g neovim --silent --no-audit --no-fund --no-progress

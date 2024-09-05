@@ -69,6 +69,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" Golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'bash-lsp/bash-language-server' " LSP server for Bash
@@ -96,7 +97,8 @@ Plug 'preservim/nerdcommenter'
 " Copilot
 Plug 'github/copilot.vim'
 
-Plug 'ntpeters/vim-better-whitespace'
+" Whitespace
+Plug 'bronson/vim-trailing-whitespace'
 
 " Colorschemes
 Plug 'morhetz/gruvbox'
