@@ -29,6 +29,7 @@ sudo apt-get update
 sudo apt-get -y install \
   bash zsh \
   vim \
+  emacs \
   curl file tree silversearcher-ag bash-completion \
   tmux fzf jq
 
