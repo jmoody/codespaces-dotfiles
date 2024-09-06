@@ -31,7 +31,8 @@ sudo apt-get -y install \
   vim \
   emacs \
   curl file tree silversearcher-ag bash-completion \
-  tmux fzf jq
+  tmux fzf jq \
+  python3-pip
 
 if ! command -v gem &> /dev/null; then
   sudo apt-get install -y ruby-full
@@ -56,12 +57,9 @@ fi
 
 if ! command -v kubectl &> /dev/null; then
   echo "kubectl is not installed. Installing kubectl..."
-  sudo apt-get update
-  sudo apt-get install -y apt-transport-https ca-certificates curl
-  sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-  sudo apt-get update
-  sudo apt-get install -y kubectl
+  curl -LO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+  sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+  rm kubectl
   echo "installed kubectl: $(kubectl version --client | head -n 1)"
 else
   echo "kubectl is already installed: $(kubectl version --client | head -n 1)"
@@ -132,16 +130,19 @@ banner "neovim: binary"
 
 sudo rm -rf "${HOME}/tmp/nvim.appimage"
 sudo rm -rf "${HOME}/tmp/squashfs-root"
+sudo rm -rf "/usr/local/neovim"
+sudo rm -rf "/usr/local/bin/nvim"
 
 curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o "${HOME}/tmp/nvim.appimage"
 set +e
 $(
-	cd "${HOME}/tmp"
-	chmod u+x nvim.appimage
-	./nvim.appimage --appimage-extract
-	sudo mv ./squashfs-root/usr/bin/nvim /usr/local/bin/nvim
-	sudo chown -R $(whoami) squashfs-root
-	sudo rm -rf "${HOME}/tmp/squashfs-root"
+    cd "${HOME}/tmp"
+    chmod u+x nvim.appimage
+    ./nvim.appimage --appimage-extract
+    sudo mv ./squashfs-root /usr/local/neovim
+    sudo ln -s /usr/local/neovim/usr/bin/nvim /usr/local/bin/nvim
+    sudo chown -R $(whoami) squashfs-root
+    sudo rm -rf "${HOME}/tmp/squashfs-root"
 )
 set -e
 
@@ -151,4 +152,5 @@ npm install -g neovim --silent --no-audit --no-fund --no-progress
 banner "neovim: ruby gem"
 sudo gem install neovim
 
-
+banner "neovim: neopython"
+pip3 install pynvim
