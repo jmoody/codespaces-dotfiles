@@ -45,14 +45,25 @@ if ! command -v node &> /dev/null; then
   echo "Node.js is not installed. Installing Node.js..."
   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
   sudo apt-get install -y nodejs
-
 elif [[ $(node -v | cut -d'.' -f1 | sed 's/v//') -lt 18 ]]; then
   echo "Node.js version is less than 18. Installing Node.js v18..."
   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
   sudo apt-get install -y nodejs
-
 else
   echo "Node.js version $(node -v) is already installed."
+fi
+
+if ! command -v kubectl &> /dev/null; then
+  echo "kubectl is not installed. Installing kubectl..."
+  sudo apt-get update
+  sudo apt-get install -y apt-transport-https ca-certificates curl
+  sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  sudo apt-get update
+  sudo apt-get install -y kubectl
+  echo "installed kubectl: $(kubectl version --client | head -n 1)"
+else
+  echo "kubectl is already installed: $(kubectl version --client | head -n 1)"
 fi
 
 sudo rm -rf "${HOME}/.fnm"
