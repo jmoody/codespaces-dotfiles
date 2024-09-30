@@ -113,4 +113,8 @@ Plug 'rebelot/kanagawa.nvim'
 
 call plug#end()
 
+" Automatically install plugins if they are missing
+" Comment this out after the first run
+autocmd VimEnter * if empty(glob('~/.local/share/nvim/plugged/*')) | PlugInstall | endif
+
 colorscheme dracula
