@@ -153,4 +153,9 @@ banner "neovim: ruby gem"
 sudo gem install neovim
 
 banner "neovim: neopython"
+python3 -m venv "${HOME}/.venv-nvim"
+rm -f "${HOME}/.venv-nvim/bin/activate.csh"
+rm -f "${HOME}/.venv-nvim/bin/activate.fish"
+rm -f "${HOME}/.venv-nvim/bin/Activate.ps1"
+source "${HOME}/.venv-nvim/bin/activate"
 pip3 install pynvim
