@@ -27,12 +27,10 @@ banner "apt-get"
 
 sudo apt-get update
 sudo apt-get -y install \
-  bash zsh \
-  vim \
-  emacs \
+  bash zsh vim emacs \
   curl file tree silversearcher-ag bash-completion \
   tmux fzf jq \
-  python3-pip
+  python3-venv python3-pip
 
 if ! command -v gem &> /dev/null; then
   sudo apt-get install -y ruby-full
