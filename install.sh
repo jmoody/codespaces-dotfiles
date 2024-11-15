@@ -19,11 +19,11 @@ banner "ENV"
 # $2 target
 function symlink {
   if [ "${2}" = "/" ]; then
-    info "${DOTFILES_DIR}/dotfiles/${1} => ${HOME}/bin"
-    ln -sf "${DOTFILES_DIR}/dotfiles/${1}" "${HOME}/"
+    info "${DOTFILES_DIR}/${1} => ${HOME}/bin"
+    ln -sf "${DOTFILES_DIR}/${1}" "${HOME}/"
   else
-    info "${DOTFILES_DIR}/dotfiles/${1} => ${HOME}/${2}"
-    ln -sf "${DOTFILES_DIR}/dotfiles/${1}" "${HOME}/${2}"
+    info "${DOTFILES_DIR}/${1} => ${HOME}/${2}"
+    ln -sf "${DOTFILES_DIR}/${1}" "${HOME}/${2}"
   fi
 }
 
