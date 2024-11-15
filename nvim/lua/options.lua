@@ -2,6 +2,11 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
+-- turn off search highlight
+vim.api.nvim_set_keymap('n', '<leader><space>', ':nohlsearch<CR>', { noremap = true, silent = true })
+
+vim.opt.background="light"
+
 -- Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = false
