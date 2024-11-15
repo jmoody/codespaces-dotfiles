@@ -2,8 +2,6 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
-vim.g.indentLine_char = '⦙'
-
 -- Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = false
