@@ -1,7 +1,7 @@
 au FileType feature :setlocal indentexpr=0
 set fo+=t
 
-au BufRead,BufNewFile *.md setlocal textwidth=120
+" au BufRead,BufNewFile *.md setlocal textwidth=120
 
 " leader is comma
 let mapleader=","
@@ -56,8 +56,6 @@ set noerrorbells
 
 syntax on
 
-let g:loaded_perl_provider=0
-
 " PLUGINS ----------------------------------------------------------------
 
 " Install Plug if it's not already
@@ -69,11 +67,10 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" Golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 Plug 'bash-lsp/bash-language-server' " LSP server for Bash
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocompletion engine
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocompletion engine
 
 " Kubernetes
 Plug 'tpope/vim-fugitive' " Git wrapper for handling Kubernetes files
@@ -97,24 +94,23 @@ Plug 'preservim/nerdcommenter'
 " Copilot
 Plug 'github/copilot.vim'
 
-" Whitespace
 Plug 'bronson/vim-trailing-whitespace'
 
 " Colorschemes
-Plug 'morhetz/gruvbox'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'folke/tokyonight.nvim'
-Plug 'shaunsingh/nord.nvim'
-Plug 'navarasu/onedark.nvim'
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
-Plug 'sainnhe/everforest'
-Plug 'rebelot/kanagawa.nvim'
+" Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'folke/tokyonight.nvim'
+" Plug 'shaunsingh/nord.nvim'
+" Plug 'navarasu/onedark.nvim'
+" Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+" Plug 'rose-pine/neovim', { 'as': 'rose-pine' }
+" Plug 'sainnhe/everforest'
+" Plug 'rebelot/kanagawa.nvim'
+" Plug 'morhetz/gruvbox'
+" "
+" " Light themes
+" Plug 'NLKNguyen/papercolor-theme', { 'as': 'papercolor' }
+" Plug 'projekt0n/github-nvim-theme', { 'as': 'github-light' }
+" Plug 'altercation/vim-colors-solarized', { 'as': 'solarized-light' }
+Plug 'rakr/vim-one', { 'as': 'one' }
 
 call plug#end()
-
-" Automatically install plugins if they are missing
-" Comment this out after the first run
-autocmd VimEnter * if empty(glob('~/.local/share/nvim/plugged/*')) | PlugInstall | endif
-
-colorscheme dracula
