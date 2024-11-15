@@ -2,13 +2,18 @@
 
 set -euo pipefail
 
-source script/log.sh
+
+DOTFILES_DIR=$(cd $(dirname "$0")/../dotfiles && pwd)
+
+if [ ! -f "${DOTFILES_DIR}/script/log.sh" ]; then
+  DOTFILES_DIR=$(cd $(dirname "$0")/.. && pwd)
+fi
+
+echo "DOTFILES_DIR=${DOTFILES_DIR}"
+source "${DOTFILES_DIR}/script/log.sh"
 
 mkdir -p "${HOME}/.config"
 banner "ENV"
-
-DOTFILES_DIR=$(cd $(dirname "$0")/.. && pwd)
-echo "DOTFILES_DIR=${DOTFILES_DIR}"
 
 # $1 source
 # $2 target
@@ -30,7 +35,12 @@ sudo apt-get -y install build-essential
 # linuxbrew
 NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-HOMEBREW_INSTALL_FROM_API=true  brew bundle install --no-lock --file ${PWD}/Brewfile
+HOMEBREW_INSTALL_FROM_API=true  brew bundle install --no-lock --file ${DOTFILES_DIR}/Brewfile
+
+banner "zsh"
+
+info "changing shell to $(which zsh) for $(whoami)"
+sudo chsh -s $(which zsh) $(whoami)
 
 #banner "RUBY/RBENV"
 #
@@ -70,17 +80,12 @@ HOMEBREW_INSTALL_FROM_API=true  brew bundle install --no-lock --file ${PWD}/Brew
 #"${HOME}/.fnm/fnm" install v18
 #"${HOME}/.fnm/fnm" default v18
 #
-banner "zsh"
+# banner "starship"
 
-info "changing shell to $(which zsh) for $(whoami)"
-sudo chsh -s $(which zsh) $(whoami)
-
-banner "starship"
-
-curl -fsSL https://starship.rs/install.sh -o install_starship.sh
-chmod +x install_starship.sh
-sudo ./install_starship.sh --force -y
-rm ./install_starship.sh
+#curl -fsSL https://starship.rs/install.sh -o install_starship.sh
+#chmod +x install_starship.sh
+#sudo ./install_starship.sh --force -y
+#rm ./install_starship.sh
 
 #banner "GitHub CLI (gh)"
 #
@@ -125,37 +130,3 @@ symlink tmux/tmux.conf .tmux.conf
 symlink starship/starship.toml .config/starship.toml
 symlink zsh/zshrc .zshrc
 symlink nvim .config/nvim
-
-banner "neovim: binary"
-
-sudo rm -rf "${HOME}/tmp/nvim.appimage"
-sudo rm -rf "${HOME}/tmp/squashfs-root"
-sudo rm -rf "/usr/local/neovim"
-sudo rm -rf "/usr/local/bin/nvim"
-
-#curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o "${HOME}/tmp/nvim.appimage"
-#set +e
-#$(
-#    cd "${HOME}/tmp"
-#    chmod u+x nvim.appimage
-#    ./nvim.appimage --appimage-extract
-#    sudo mv ./squashfs-root /usr/local/neovim
-#    sudo ln -s /usr/local/neovim/usr/bin/nvim /usr/local/bin/nvim
-#    sudo chown -R $(whoami) squashfs-root
-#    sudo rm -rf "${HOME}/tmp/squashfs-root"
-#)
-#set -e
-#
-#banner "neovim: neovim node package"
-#npm install -g neovim --silent --no-audit --no-fund --no-progress
-#
-#banner "neovim: ruby gem"
-#sudo gem install neovim
-#
-#banner "neovim: neopython"
-#python3 -m venv "${HOME}/.venv-nvim"
-#rm -f "${HOME}/.venv-nvim/bin/activate.csh"
-#rm -f "${HOME}/.venv-nvim/bin/activate.fish"
-#rm -f "${HOME}/.venv-nvim/bin/Activate.ps1"
-#source "${HOME}/.venv-nvim/bin/activate"
-#pip3 install pynvim

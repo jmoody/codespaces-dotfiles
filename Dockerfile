@@ -6,19 +6,32 @@ RUN apt-get update && apt-get install -y \
   curl \
   git
 
-WORKDIR /dotfiles
+RUN mkdir -p /workspaces/.codespaces/.persistedshare/dotfiles
 
-COPY install.sh /dotfiles
-COPY Brewfile /dotfiles
-COPY bash /dotfiles/bash
-COPY bin /dotfiles/bin
-COPY bundler /dotfiles/bundler
-COPY fzf /dotfiles/fzg
-COPY gem /dotfiles/gem
-COPY git /dotfiles/git
-COPY nvim /dotfiles/nvim
-COPY rbenv /dotfiles/rbenv
-COPY script /dotfiles/script
-COPY starship /dotfiles/starship
-COPY tmux /dotfiles/tmux
-COPY zsh /dotfiles/zsh
+WORKDIR /workspaces/.codespaces/.persistedshare/dotfiles
+
+COPY install.sh .
+COPY Brewfile .
+COPY bash ./bash
+COPY bin ./bin
+COPY bundler ./bundler
+COPY fzf ./fzf
+COPY gem ./gem
+COPY git ./git
+COPY nvim ./nvim
+COPY rbenv ./rbenv
+COPY script ./script
+COPY starship ./starship
+COPY tmux . ./tmux
+COPY zsh . ./zsh
+
+RUN useradd -m vscode
+RUN usermod -aG sudo vscode
+RUN chown -R vscode:vscode /workspaces/.codespaces/.persistedshare/dotfiles
+
+RUN mkdir -p /workspaces/project
+RUN chown -R vscode:vscode /workspaces/project
+
+WORKDIR /workspaces/project
+
+SHELL ["/bin/bash", "-c"]
