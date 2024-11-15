@@ -70,7 +70,6 @@ alias cd-dotfiles=". ${HOME}/bin/cd-dotfiles.sh"
 
 export PATH="${HOME}/bin:${PATH}"
 export PATH="${HOME}/.cargo/bin:${PATH}"
-export PATH="./:${PATH}"
 
 export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
 export GOPRIVATE=
@@ -79,6 +78,10 @@ export GONOSUMDB=github.com/github/*
 
 setopt interactivecomments
 autoload -Uz compinit && compinit
+
+if [ -e "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 [ -f ~/.fzf/fzf.zsh ] && source ~/.fzf/fzf.zsh
 
@@ -97,3 +100,11 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="/home/vscode/.fnm:$PATH"
   eval "`fnm env`"
 fi
+
+if [ -e "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  export PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+fi
+
+export PATH="./:${PATH}"
+
