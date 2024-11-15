@@ -115,7 +115,6 @@ banner "symlinking"
 
 mkdir -p "${HOME}/.bundle"
 mkdir -p "${HOME}/.config"
-mkdir -p "${HOME}/.config/nvim"
 mkdir -p "${HOME}/tmp"
 
 symlink bash/bashrc .bashrc
