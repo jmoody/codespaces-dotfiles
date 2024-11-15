@@ -2,7 +2,7 @@
 # Don't print a new line at the start of the prompt
 add_newline = false
 scan_timeout = 10
-command_timeout = 400
+command_timeout = 1000
 
 format = """
 $username\
