@@ -35,7 +35,7 @@ sudo apt-get -y install build-essential
 # linuxbrew
 NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-HOMEBREW_INSTALL_FROM_API=true  brew bundle install --no-lock --file ${DOTFILES_DIR}/Brewfile
+HOMEBREW_INSTALL_FROM_API=true  brew bundle install --file ${DOTFILES_DIR}/Brewfile
 
 banner "zsh"
 
@@ -45,7 +45,7 @@ sudo chsh -s $(which zsh) $(whoami)
 #banner "RUBY/RBENV"
 #
 #if ! command -v rbenv &> /dev/null; then
-#  HOMEBREW_INSTALL_FROM_API=true  brew install --no-lock rbenv
+#  HOMEBREW_INSTALL_FROM_API=true  brew install rbenv
 #  rbenv install 3.3.5
 #  echo "installed gem version: $(gem --version)"
 #  echo "installed ruby version: $(ruby --version)"
@@ -57,7 +57,7 @@ sudo chsh -s $(which zsh) $(whoami)
 #banner "Node.js"
 #
 #if ! command -v node &> /dev/null; then
-#  HOMEBREW_INSTALL_FROM_API=true  brew install --no-lock fnm
+#  HOMEBREW_INSTALL_FROM_API=true  brew install fnm
 #  fnm install v22
 #else
 #  echo "Node.js version $(node -v) is already installed."
