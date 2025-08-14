@@ -14,6 +14,12 @@ vim.opt.rtp:prepend(lazypath)
 require("options")
 require("keys")
 require("lazy").setup("plugins")
-
--- TODO:
--- treesitter keys
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "json", "jsonc" },
+  callback = function()
+    vim.bo.expandtab = true   -- Use spaces instead of tabs
+    vim.bo.tabstop = 2        -- Show tabs as 2 spaces
+    vim.bo.shiftwidth = 2     -- Use 2 spaces for indentation
+    vim.cmd('retab')          -- Convert any existing tabs to spaces
+  end,
+})

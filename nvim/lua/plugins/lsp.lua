@@ -8,7 +8,6 @@ end
 
 if vim.fn.executable("ruby") == 1 then
 	servers["sorbet"] = {}
-	servers["ruby_lsp"] = {}
 end
 
 local on_attach = function(_, bufnr)

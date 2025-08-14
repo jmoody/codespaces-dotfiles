@@ -4,4 +4,10 @@ end
 
 return {
 	"github/copilot.vim",
+	config = function()
+		-- Disable Copilot for *.md files
+		vim.g.copilot_filetypes = {
+			markdown = false,
+		}
+	end,
 }

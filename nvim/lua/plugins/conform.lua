@@ -4,7 +4,7 @@ return {
 		local conform = require("conform")
 		conform.formatters.rubocop = {
 			command = "bundle",
-			prepend_args = { "exec", "rubocop" },
+			prepend_args = { "exec", "rubocop", "-c", "./.rubocop.yaml" },
 		}
 		conform.setup({
 			formatters_by_ft = {
