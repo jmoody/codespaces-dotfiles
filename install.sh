@@ -11,6 +11,7 @@ fi
 
 echo "DOTFILES_DIR=${DOTFILES_DIR}"
 source "${DOTFILES_DIR}/script/log.sh"
+source "${DOTFILES_DIR}/script/wait-for-apt.sh"
 
 mkdir -p "${HOME}/.config"
 banner "ENV"
@@ -28,6 +29,11 @@ function symlink {
 }
 
 banner "apt-get"
+
+# Wait for any existing apt processes to complete before running our updates
+wait_for_apt_lock || {
+  echo "Failed to acquire apt lock within timeout, but continuing anyway..."
+}
 
 sudo apt-get update
 sudo apt-get -y install build-essential
