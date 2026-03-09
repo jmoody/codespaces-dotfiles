@@ -21,8 +21,7 @@ export CLICOLOR=1
 # use yellow for dir’s
 export LSCOLORS=dxfxcxdxbxegedabagacad
 
-### add ./ to path ###
-export PATH=.:~/bin:$PATH
+export PATH="${HOME}/bin:$PATH"
 
 alias be='bundle exec'
 alias btar='tar --use-compress-program /opt/local/bin/bzip2 '
@@ -33,12 +32,11 @@ source /etc/profile.d/bash_completion.sh
 
 export PATH="${HOME}/bin:${PATH}"
 export PATH="${HOME}/.cargo/bin:${PATH}"
-export PATH="./:${PATH}"
 
-GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
-GOPRIVATE=
-GONOPROXY=
-GONOSUMDB=github.com/github/*
+export GOPROXY="https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct"
+export GOPRIVATE="github.com/github/*"
+export GONOSUMDB="github.com/github/*"
+export GONOPROXY=
 
 [ -f ~/.fzf/fzf.bash ] && source ~/.fzf/fzf.bash
 
