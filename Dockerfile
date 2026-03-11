@@ -1,7 +1,6 @@
 FROM ubuntu:latest
 
-RUN sudo rm -f /etc/apt/sources.list.d/yarn.list
-RUN sudo apt-get update
+RUN rm -f /etc/apt/sources.list.d/yarn.list
 
 RUN apt-get update && apt-get install -y \
   build-essential \
