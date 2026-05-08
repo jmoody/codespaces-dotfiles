@@ -100,8 +100,11 @@ if [ -e "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
   export PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
 fi
 
+# rbenv may be installed in ~/.rbenv (manual) or /usr/share/rbenv (codespaces)
 if [[ -d "${HOME}/.rbenv" ]]; then
   export PATH="${HOME}/.rbenv/bin:${PATH}"
+  eval "$(rbenv init - zsh)"
+elif [[ -d "/usr/share/rbenv" ]]; then
   eval "$(rbenv init - zsh)"
 fi
 

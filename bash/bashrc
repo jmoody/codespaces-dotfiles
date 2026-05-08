@@ -40,10 +40,13 @@ export GONOPROXY=
 
 [ -f ~/.fzf/fzf.bash ] && source ~/.fzf/fzf.bash
 
-#if [ -d "${HOME}/.rbenv" ]; then
-#  export PATH="${HOME}/.rbenv/bin:${PATH}"
-#  eval "$(rbenv init - bash)"
-#fi
+# rbenv may be installed in ~/.rbenv (manual) or /usr/share/rbenv (codespaces)
+if [[ -d "${HOME}/.rbenv" ]]; then
+  export PATH="${HOME}/.rbenv/bin:${PATH}"
+  eval "$(rbenv init - bash)"
+elif [[ -d "/usr/share/rbenv" ]]; then
+  eval "$(rbenv init - bash)"
+fi
 
 source <(kubectl completion bash)
 
