@@ -48,15 +48,15 @@ return {
 		lazy = false,
 		config = function()
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			local lspconfig = require("lspconfig")
 			for server_name, settings in pairs(servers) do
-				lspconfig[server_name].setup({
+				vim.lsp.config(server_name, {
 					capabilities = capabilities,
 					on_attach = on_attach,
 					settings = settings,
-					filetypes = (servers[server_name] or {}).filetypes,
+					filetypes = (settings or {}).filetypes,
 				})
 			end
+			vim.lsp.enable(vim.tbl_keys(servers))
 		end,
 	},
 }

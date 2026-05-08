@@ -5,7 +5,8 @@ vim.g.maplocalleader = ","
 -- turn off search highlight
 vim.api.nvim_set_keymap('n', '<leader><space>', ':nohlsearch<CR>', { noremap = true, silent = true })
 
-vim.opt.background="light"
+vim.opt.background = "light"
+vim.opt.termguicolors = true
 
 -- Make line numbers default
 vim.wo.number = true
