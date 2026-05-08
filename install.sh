@@ -66,3 +66,8 @@ symlink tmux/tmux.conf .tmux.conf
 symlink starship/starship.toml .config/starship.toml
 symlink zsh/zshrc .zshrc
 symlink nvim .config/nvim
+
+banner "nvim plugins"
+
+info "installing nvim plugins headless"
+nvim --headless "+Lazy! restore" +qa
