@@ -28,26 +28,6 @@ function symlink {
   fi
 }
 
-banner "apt-get"
-
-# Wait for any existing apt processes to complete before running our updates
-wait_for_apt_lock || {
-  echo "Failed to acquire apt lock within timeout, but continuing anyway..."
-}
-
-sudo apt-get update
-sudo apt-get -y install build-essential
-
-# linuxbrew
-NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-HOMEBREW_INSTALL_FROM_API=true  brew bundle install --file ${DOTFILES_DIR}/Brewfile
-
-banner "zsh"
-
-info "changing shell to $(which zsh) for $(whoami)"
-sudo chsh -s $(which zsh) $(whoami)
-
 banner "symlinking"
 
 mkdir -p "${HOME}/.bundle"
@@ -66,6 +46,21 @@ symlink tmux/tmux.conf .tmux.conf
 symlink starship/starship.toml .config/starship.toml
 symlink zsh/zshrc .zshrc
 symlink nvim .config/nvim
+
+banner "apt-get"
+
+apt_get_retry update
+apt_get_retry -y install build-essential
+
+# linuxbrew
+NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+HOMEBREW_INSTALL_FROM_API=true  brew bundle install --file ${DOTFILES_DIR}/Brewfile
+
+banner "zsh"
+
+info "changing shell to $(which zsh) for $(whoami)"
+sudo chsh -s $(which zsh) $(whoami)
 
 banner "nvim plugins"
 
