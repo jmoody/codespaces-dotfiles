@@ -1,29 +1,37 @@
 #!/usr/bin/env bash
 
-# Wait for apt locks to be released
-# This is needed in Codespaces where background apt processes may be running
+# Codespaces starts background apt processes while the container is created.
+# They hold the apt locks, so apt-get must be retried until the lock is free.
 
-wait_for_apt_lock() {
-  local max_wait=300  # 5 minutes
-  local wait_interval=5
+apt_get_retry() {
+  local max_wait=300
+  local interval=5
   local elapsed=0
-  
-  info "Checking for apt locks..."
-  
-  while sudo fuser /var/lib/apt/lists/lock >/dev/null 2>&1 || \
-        sudo fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1 || \
-        sudo fuser /var/lib/dpkg/lock >/dev/null 2>&1; do
-    
-    if [ $elapsed -ge $max_wait ]; then
-      echo "WARNING: Timeout waiting for apt locks after ${max_wait}s, proceeding anyway..."
-      return 1
+  local output
+  local status
+
+  while true; do
+    if output="$(sudo apt-get "$@" 2>&1)"; then
+      printf '%s\n' "${output}"
+      return 0
+    else
+      status=$?
     fi
-    
-    info "Waiting for apt locks to be released... (${elapsed}s elapsed)"
-    sleep $wait_interval
-    elapsed=$((elapsed + wait_interval))
+
+    if ! grep -qE 'Could not get lock|Unable to lock|Unable to acquire the dpkg frontend lock' <<< "${output}"; then
+      printf '%s\n' "${output}" >&2
+      error "apt-get $* failed with status ${status}" >&2
+      return "${status}"
+    fi
+
+    if [[ "${elapsed}" -ge "${max_wait}" ]]; then
+      printf '%s\n' "${output}" >&2
+      error "apt-get $* could not get the apt lock within ${max_wait}s" >&2
+      return "${status}"
+    fi
+
+    info "apt lock is held, retrying apt-get $* in ${interval}s (${elapsed}s elapsed)"
+    sleep "${interval}"
+    elapsed=$((elapsed + interval))
   done
-  
-  info "Apt locks are free, proceeding..."
-  return 0
 }
