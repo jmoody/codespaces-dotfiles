@@ -57,6 +57,12 @@ NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/in
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 HOMEBREW_INSTALL_FROM_API=true  brew bundle install --file ${DOTFILES_DIR}/Brewfile
 
+banner "copilot"
+
+if ! "${DOTFILES_DIR}/script/install-copilot.sh"; then
+  warn "the Copilot configuration is incomplete"
+fi
+
 banner "zsh"
 
 info "changing shell to $(which zsh) for $(whoami)"

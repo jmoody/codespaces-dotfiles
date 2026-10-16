@@ -1,0 +1,17 @@
+## Asking questions
+
+Do not use the elicitation or `ask_user` interface. Ask questions as plain text.
+
+## Invoking skill scripts
+
+When running a bundled skill script, always invoke it by its canonical absolute path, unquoted, and never via a `bash <path>` wrapper or a relative `.github/skills/...` / `./scripts/...` spelling. Example:
+
+```
+@HOME@/.copilot/skills/<skill>/scripts/<script>.sh [args]
+```
+
+A `cd /some/repo && <abs-path> ...` prefix is fine; the approval identifier is the script path itself. Consistent absolute-path invocation keeps a single remembered approval per repo instead of one per path spelling.
+
+## Generating text and comments
+
+Use ASD-STE100 Simplified Technical English for GitHub-facing text, including pull request titles and descriptions, issue comments, review-comment replies, and commit messages.

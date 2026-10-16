@@ -17,6 +17,7 @@ COPY Brewfile .
 COPY bash ./bash
 COPY bin ./bin
 COPY bundler ./bundler
+COPY copilot ./copilot
 COPY fzf ./fzf
 COPY gem ./gem
 COPY git ./git

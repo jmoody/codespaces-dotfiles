@@ -1,5 +1,8 @@
+tap "datadog-labs/pack"
+
 brew "fd"
 brew "gh"
+brew "datadog-labs/pack/pup"
 brew "jq"
 brew "vim"
 brew "neovim"

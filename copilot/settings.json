@@ -1,0 +1,74 @@
+{
+  "renderMarkdown": true,
+  "screenReader": false,
+  "theme": "light",
+  "logLevel": "all",
+  "allowedUrls": [
+    "https://docs.github.com",
+    "https://api.github.com",
+    "https://github.com",
+    "https://en.wikipedia.org",
+    "https://www.google.com",
+    "https://github.blog",
+    "https://docs.gitlab.com",
+    "https://www.fedramp.gov",
+    "https://csf.tools",
+    "https://everef.net",
+    "https://forums.eveonline.com",
+    "https://gh-mirror.trafficmanager.net",
+    "https://consent.google.com",
+    "https://code.visualstudio.com",
+    "https://packages.ubuntu.com",
+    "https://developer.hashicorp.com",
+    "https://raw.githubusercontent.com",
+    "https://csrc.nist.gov",
+    "http://localhost:3000",
+    "https://learn.microsoft.com",
+    "https://hub.docker.com",
+    "https://gh-analytics.eastus.kusto.windows.net",
+    "https://docs.port.io",
+    "http://localhost:3999",
+    "https://uploads.github.com",
+    "https://app.datadoghq.com",
+    "https://gh.io",
+    "http://localhost:3006",
+    "http://127.0.0.1:3007",
+    "https://thehub.github.com",
+    "https://deploy-api.octoca.ts.net",
+    "https://devportal-api-production.github.internal",
+    "https://splunk-cus.githubapp.com",
+    "http://localhost:4318",
+    "http://localhost:16686",
+    "http://localhost:3007",
+    "https://graphql-ruby.org",
+    "http://localhost:8080"
+  ],
+  "extraKnownMarketplaces": {
+    "agent-config": {
+      "source": {
+        "source": "github",
+        "repo": "github/agent-config"
+      }
+    },
+    "github-slack-mcp": {
+      "source": {
+        "source": "github",
+        "repo": "github/copilot-slack-mcp"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "port@agent-config": true,
+    "gho11y@agent-config": true,
+    "gh-best-practices@agent-config": false,
+    "slack-mcp@github-slack-mcp": true
+  },
+  "model": "claude-opus-5",
+  "autoUpdatesChannel": "prerelease",
+  "disabledMcpServers": [
+    "github-mcp-server"
+  ],
+  "autoTier": "intelligence",
+  "effortLevel": "high",
+  "showReasoning": false
+}
