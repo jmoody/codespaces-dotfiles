@@ -60,6 +60,12 @@ brew tap datadog-labs/pack
 brew trust datadog-labs/pack
 HOMEBREW_INSTALL_FROM_API=true  brew bundle install --file ${DOTFILES_DIR}/Brewfile
 
+banner "gh extensions"
+
+if ! "${DOTFILES_DIR}/script/install-gh-extensions.sh"; then
+  warn "some gh extensions are missing"
+fi
+
 banner "copilot"
 
 if ! "${DOTFILES_DIR}/script/install-copilot.sh"; then

@@ -2,6 +2,10 @@
 
 For codespaces.
 
+### GitHub CLI extensions
+
+`script/install-gh-extensions.sh` installs the `gh` extensions in `EXTENSIONS` that are not installed already: `github/gh-stack`. `install.sh` calls it after Homebrew installs `gh`.
+
 ### GitHub Copilot CLI
 
 `script/install-copilot.sh` installs the Copilot CLI configuration into `$HOME/.copilot`. `install.sh` calls it after Homebrew, because the script needs `gh`. You can also run it on its own.
