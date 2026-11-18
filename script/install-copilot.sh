@@ -13,13 +13,24 @@ readonly COPILOT_PACKAGE="@github/copilot@prerelease"
 
 readonly VENDORED_SKILLS=(
   "ace-fca-review-plan"
-  "adr-author"
+  "compaction-count"
   "fix-markdown"
   "replan-batch-tasks"
 )
 
 readonly MANAGED_SKILLS=(
   "github/agent-config skills/adversarial-review"
+  "github/agent-config skills/cleanup-worktrees"
+  "github/agent-config skills/contribute-skill"
+  "github/agent-config skills/contributions"
+  "github/agent-config skills/copilot-usage-stats"
+  "github/agent-config plugins/gh-best-practices/skills/deployment-safety"
+  "github/agent-config plugins/gh-best-practices/skills/feature-flag-practices"
+  "github/agent-config plugins/gh-best-practices/skills/gh-best-practice-code-review"
+  "github/agent-config plugins/gh-best-practices/skills/github-base-images"
+  "github/agent-config plugins/gh-best-practices/skills/go-preferred-modules"
+  "github/agent-config plugins/gh-best-practices/skills/mysql-query-efficiency"
+  "github/agent-config plugins/gh-best-practices/skills/observability-practices"
   "DietrichGebert/ponytail skills/ponytail-review"
   "datadog-labs/agent-skills dd-pup"
 )
@@ -28,6 +39,7 @@ readonly PLUGINS=(
   "port@agent-config"
   "gho11y@agent-config"
   "slack-mcp@github-slack-mcp"
+  "mattpocock-skills@mattpocock"
 )
 
 failures=0

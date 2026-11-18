@@ -24,8 +24,8 @@ EOF
 
 format_file() {
   local file="$1"
-  LC_ALL=C awk -f "${SCRIPT_DIR}/unwrap-prose.awk" "$file" \
-    | LC_ALL=C awk -f "${SCRIPT_DIR}/align-tables.awk"
+  LC_ALL=C awk -f "${SCRIPT_DIR}/verbatim-blocks.awk" -f "${SCRIPT_DIR}/unwrap-prose.awk" "$file" \
+    | LC_ALL=C SOURCE_FILE="$file" awk -f "${SCRIPT_DIR}/verbatim-blocks.awk" -f "${SCRIPT_DIR}/align-tables.awk"
 }
 
 main() {
@@ -56,6 +56,10 @@ main() {
   local rc=0
   local file formatted
   for file in "$@"; do
+    if [[ -L "$file" ]]; then
+      echo "[ERROR] File '$file' is a symbolic link; pass its target path instead." >&2
+      exit 1
+    fi
     if [[ ! -f "$file" ]]; then
       echo "[ERROR] File '$file' does not exist" >&2
       exit 1

@@ -21,11 +21,11 @@ The steps that need the network warn instead of failing, so a container without 
 
 `settings.json` is a copy, not a symlink, because `copilot plugin install` rewrites the file and the rewrite replaces a symlink. Edit `copilot/settings.json` and run the script again.
 
-Vendored skills are the ones with no upstream repository, so this repository is their only source: `ace-fca-review-plan`, `adr-author`, `fix-markdown`, and `replan-batch-tasks`. Edit them here, not in `$HOME/.copilot/skills`.
+Vendored skills are the ones with no upstream repository, so this repository is their only source: `ace-fca-review-plan`, `compaction-count`, `fix-markdown`, and `replan-batch-tasks`. Edit them here, not in `$HOME/.copilot/skills`.
 
-Managed skills come from GitHub and are listed in `MANAGED_SKILLS`: `adversarial-review`, `ponytail-review`, and `dd-pup`. `gh skill install` copies files and keeps no git history, so any local edit to a managed skill is lost on the next install. Keep your changes in a vendored skill instead.
+Managed skills come from GitHub and are listed in `MANAGED_SKILLS`: `ponytail-review`, `dd-pup`, and the `github/agent-config` skills, including the `gh-best-practices` skills. The `gh-best-practices` plugin stays disabled, so it does not supply the same skills a second time. `gh skill install` copies files and keeps no git history, so any local edit to a managed skill is lost on the next install. Keep your changes in a vendored skill instead.
 
-Plugins are listed in `PLUGINS`. A plugin is a bundle that can carry several skills and its own MCP servers, so `port` and `gho11y` are not in `MANAGED_SKILLS`. The `port` plugin also supplies the Port MCP server, which is why `copilot/mcp-config.json` must never declare one.
+Plugins are listed in `PLUGINS`. A plugin is a bundle that can carry several skills and its own MCP servers, so `port`, `gho11y`, and `mattpocock-skills` are not in `MANAGED_SKILLS`. The `port` plugin also supplies the Port MCP server, which is why `copilot/mcp-config.json` must never declare one.
 
 #### Requirements
 

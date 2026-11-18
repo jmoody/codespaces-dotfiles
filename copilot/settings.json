@@ -55,13 +55,20 @@
         "source": "github",
         "repo": "github/copilot-slack-mcp"
       }
+    },
+    "mattpocock": {
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
+      }
     }
   },
   "enabledPlugins": {
     "port@agent-config": true,
     "gho11y@agent-config": true,
     "gh-best-practices@agent-config": false,
-    "slack-mcp@github-slack-mcp": true
+    "slack-mcp@github-slack-mcp": true,
+    "mattpocock-skills@mattpocock": true
   },
   "model": "claude-opus-5",
   "autoUpdatesChannel": "prerelease",

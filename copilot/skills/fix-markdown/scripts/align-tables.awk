@@ -23,11 +23,22 @@ function make_sep(w,align){
   if(align=="left")   return ":" repeat("-",w-1)
   return repeat("-",w)
 }
-function split_cells(line,arr,   s,n,i,parts){
-  s=line; sub(/^\|/,"",s); sub(/\|[ \t]*$/,"",s)
-  n=split(s,parts,"|")
-  for(i=1;i<=n;i++) arr[i]=trim(parts[i])
-  return n
+function split_cells(line,arr,   s,n,i,ch,slashes,ncols,last_separator){
+  s=trim(line)
+  sub(/^\|/,"",s)
+  n=length(s); ncols=1; arr[ncols]=""; slashes=0; last_separator=0
+  for(i=1;i<=n;i++){
+    ch=substr(s,i,1)
+    if(ch=="|" && slashes%2==0){
+      ncols++; arr[ncols]=""; last_separator=1
+    } else {
+      arr[ncols]=arr[ncols] ch; last_separator=0
+    }
+    if(ch=="\\") slashes++; else slashes=0
+  }
+  if(last_separator) ncols--
+  for(i=1;i<=ncols;i++) arr[i]=trim(arr[i])
+  return ncols
 }
 function flush(   i,j,ncols,out,c,left,right){
   if(nrows==0) return
@@ -50,7 +61,7 @@ function flush(   i,j,ncols,out,c,left,right){
   }
   nrows=0
 }
-function process_block(   bi,cc,valid,k,n2,tmp,tmpc){
+function process_block(   bi,cc,valid,k,n2,tmp,tmpc,mismatch){
   if(bn==0) return
   valid=0
   if(bn>=2){
@@ -61,13 +72,24 @@ function process_block(   bi,cc,valid,k,n2,tmp,tmpc){
   if(valid){
     nrows=bn
     for(bi=1;bi<=bn;bi++){ cols[bi]=split_cells(buf[bi],tmpc); for(cc=1;cc<=cols[bi];cc++) cell[bi,cc]=tmpc[cc] }
-    flush()
+    mismatch=0
+    for(bi=2;bi<=nrows;bi++){
+      if(cols[bi]!=cols[1]){ mismatch=bi; break }
+    }
+    if(mismatch){
+      for(bi=1;bi<=nrows;bi++) print buf[bi]
+      printf "[ERROR] %s:%d: table row has %d columns; expected %d; left unchanged\n", ENVIRON["SOURCE_FILE"], block_line[mismatch], cols[mismatch], cols[1] > "/dev/stderr"
+      invalid=1
+    } else {
+      flush()
+    }
   } else { for(bi=1;bi<=bn;bi++) print buf[bi] }
   bn=0
 }
 {
-  if($0 ~ /^\|/){ buf[++bn]=$0; next }
+  if(verbatim_line($0)){ process_block(); print $0; next }
+  if($0 ~ /^\|/){ buf[++bn]=$0; block_line[bn]=FNR; next }
   process_block()
   print $0
 }
-END{ process_block() }
+END{ process_block(); if(invalid) exit 1 }

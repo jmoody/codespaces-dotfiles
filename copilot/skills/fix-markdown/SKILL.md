@@ -43,11 +43,12 @@ After fixing, re-run with `--check`; a clean exit confirms compliance.
 | Align tables | `scripts/align-tables.awk` | Repads every table cell so pipes align; preserves `:` markers     |
 | Verify       | `--check` re-run           | Idempotent, so no diff means the file is compliant                |
 
-Fenced code blocks, headings, blockquotes, and table rows are never reflowed as prose, and only pipe blocks whose second line is a separator row are treated as tables.
+Fenced and indented code blocks, headings, blockquotes, and table rows are never reflowed as prose, and only pipe blocks whose second line is a separator row are treated as tables.
 
 ## Notes and limits
 
 - Requires only a POSIX `awk`; no `gawk` install is needed.
 - The script writes through a sibling `FILE.tmp` and never uses a system temp dir.
+- Symlink inputs are rejected; pass the target file path to format it.
 - It does not touch anything beyond wrapping and table alignment. It does not change heading case, replace em dashes, or reword content; do those edits by hand when the task calls for them.
 - This skill has no opinion on whether a file is tracked by git; it happily formats gitignored files too (for example `pilots/*/*.md`).
