@@ -55,6 +55,9 @@ apt_get_retry -y install build-essential
 # linuxbrew
 NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# Homebrew refuses to load formulae from third-party taps until they are trusted.
+brew tap datadog-labs/pack
+brew trust datadog-labs/pack
 HOMEBREW_INSTALL_FROM_API=true  brew bundle install --file ${DOTFILES_DIR}/Brewfile
 
 banner "copilot"
